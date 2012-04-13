@@ -6,10 +6,6 @@
 #include <stdlib.h>
 
 #include <mysql/mysql.h>
-#define DBHOST 		"localhost"
-#define DBUSER 		"nmapuser"
-#define DBPASSWORD	"nm4ps!"
-#define DBDATABASE	"nmap"
 
 typedef struct _sql_col {
 	char *name;

@@ -1,2 +1,3 @@
-*.o
-src/mysqlcsv
+src/*
+!src/Makefile
+!src/*.c

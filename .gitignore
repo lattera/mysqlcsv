@@ -1,3 +1,4 @@
 src/*
 !src/Makefile
 !src/*.c
+!src/*.example

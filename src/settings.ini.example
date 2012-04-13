@@ -1,0 +1,5 @@
+[db]
+host = localhost
+user = nmapuser
+passwrd = nm4ps!
+db = nmap

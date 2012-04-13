@@ -30,7 +30,7 @@ void convert_csv(SQL_ROW *rows, char *filename)
             for (p = col->data; *p != 0x00; p++) {
                 switch (*p) {
                     case '"':
-                        fprintf(fp, "\\\"");
+                        fprintf(fp, "\"\"");
                         break;
                     default:
                         fprintf(fp, "%c", *p);

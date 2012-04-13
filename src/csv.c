@@ -43,5 +43,7 @@ void convert_csv(SQL_ROW *rows, char *filename)
         fprintf(fp, "\n");
     }
 
+    fclose(fp);
+
     sqldb_free_rows(rows);
 }

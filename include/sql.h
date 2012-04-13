@@ -6,10 +6,10 @@
 #include <stdlib.h>
 
 #include <mysql/mysql.h>
-#define DBHOST 		"hostname"
-#define DBUSER 		"username"
-#define DBPASSWORD	"password"
-#define DBDATABASE	"database"
+#define DBHOST 		"localhost"
+#define DBUSER 		"nmapuser"
+#define DBPASSWORD	"nm4ps!"
+#define DBDATABASE	"nmap"
 
 typedef struct _sql_col {
 	char *name;
@@ -28,6 +28,8 @@ typedef struct _sql_ctx {
 	MYSQL *db;
 } SQL_CTX;
 
+SQL_CTX *init_sql(char *, char *, char *, char *);
+void close_sql(SQL_CTX *, int, int);
 SQL_ROW *sql_backend_mysql(SQL_CTX *, char *);
 SQL_ROW *runsql(SQL_CTX *, char *);
 SQL_ROW *sqlfmt(SQL_CTX *, char *, size_t, char *, ...);

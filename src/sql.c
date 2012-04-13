@@ -4,8 +4,53 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "sql.h"
 #include "misc.h"
+#include "sql.h"
+
+SQL_CTX *init_sql(char *host, char *user, char *password, char *db)
+{
+    SQL_CTX *ctx;
+
+    if (mysql_library_init(0, NULL, NULL)) {
+        return NULL;
+    }
+
+    ctx = xmalloc(sizeof(SQL_CTX));
+    if (!(ctx))
+        return NULL;
+
+    ctx->db = mysql_init(NULL);
+    if (!(ctx->db)) {
+        free(ctx);
+        return NULL;
+    }
+    
+    if (mysql_real_connect(ctx->db, host, user, password, db, 0, NULL, 0) == NULL) {
+        fprintf(stderr, "[-] mysql_real_connect: %s\n", mysql_error(ctx->db));
+        free(ctx);
+        return NULL;
+    }
+
+    return ctx;
+}
+
+void close_sql(SQL_CTX *ctx, int free_ctx, int end)
+{
+    if (!(ctx))
+        return;
+
+    if ((ctx->db))
+        mysql_close(ctx->db);
+
+    if (free_ctx) {
+        if ((ctx->db))
+            free(ctx->db);
+
+        free(ctx);
+    }
+    if (end)
+        mysql_library_end();
+}
 
 SQL_ROW *sql_backend_mysql(SQL_CTX *sqldb, char *statement)
 {

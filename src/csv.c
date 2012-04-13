@@ -23,7 +23,10 @@ void convert_csv(SQL_ROW *rows, char *filename)
     for (row = rows; row != NULL; row = row->next) {
         firstcol = 1;
         for (col = row->cols; col != NULL; col = col->next) {
-            fprintf(fp, "%s\"", (firstcol--) ? "" : ",");
+            if (!(col->data))
+                continue;
+
+            fprintf(fp, "%s\"", (firstcol) ? "" : ",");
             for (p = col->data; *p != 0x00; p++) {
                 switch (*p) {
                     case '"':
@@ -35,6 +38,7 @@ void convert_csv(SQL_ROW *rows, char *filename)
                 }
             }
             fprintf(fp, "\"");
+            firstcol = 0;
         }
         fprintf(fp, "\n");
     }
